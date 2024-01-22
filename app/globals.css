@@ -30,11 +30,16 @@ a {
   text-decoration: none;
 }
 
-.cl-signIn-start {
+.cl-signIn-start,
+.cl-signUp-start {
   box-shadow: none;
   border-color: var(--main-grey-400);
 }
 
 .cl-signIn-start > div:last-child {
+  display: none;
+}
+
+.cl-signUp-start > div:last-child {
   display: none;
 }
