@@ -16,11 +16,10 @@ function SignUpPage() {
       </Link>
 
       <SignUp
-        path="/sign-up"
         routing="path"
-        signInUrl="/sign-in"
-        redirectUrl="/new-user"
+        afterSignInUrl="/new-user"
         afterSignUpUrl="/new-user"
+        redirectUrl="/new-user"
       />
     </div>
   )

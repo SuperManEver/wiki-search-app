@@ -1,5 +1,5 @@
 // vendor
-import { auth } from '@clerk/nextjs'
+import { auth, SignOutButton } from '@clerk/nextjs'
 
 // ui
 import Button from '@/components/button'
@@ -15,12 +15,18 @@ function Home() {
 
   console.log('current user: ', userId)
 
+  const userSignedId = userId !== null
+
   return (
     <main className={css.root}>
       <header className={css.header}>
-        <Link href="/sign-in">
-          <Button>Login</Button>
-        </Link>
+        {userSignedId ? (
+          <SignOutButton />
+        ) : (
+          <Link href="/sign-in">
+            <Button>Login</Button>
+          </Link>
+        )}
       </header>
 
       <WikiSearch />
