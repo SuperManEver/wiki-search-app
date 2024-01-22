@@ -1,6 +1,13 @@
-import Image from 'next/image';
-import css from './page.module.css';
+import css from './page.module.css'
 
-export default function Home() {
-  return <main>Home</main>;
+import WikiSearch from '@/app/components/wiki-search'
+
+function Home() {
+  return (
+    <main className={css.root}>
+      <WikiSearch />
+    </main>
+  )
 }
+
+export default Home
