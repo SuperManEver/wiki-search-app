@@ -32,6 +32,10 @@ function WikiSearch({ className }: IProps) {
   }
 
   const handleKeyPress = (event: KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === 'Escape') {
+      clearInput()
+    }
+
     if (event.key === 'Enter') {
       handleSearch()
     }
