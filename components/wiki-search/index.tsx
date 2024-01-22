@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, ChangeEvent } from 'react'
+import { useState, ChangeEvent, KeyboardEvent, useCallback } from 'react'
 import type { WikiSearchResult } from '@/types'
 
 import { useWikiSearch } from '@/utils/hooks'
@@ -27,13 +27,19 @@ function WikiSearch({ className }: IProps) {
     setQuery(value)
   }
 
+  const handleSearch = () => {
+    search(query)
+  }
+
+  const handleKeyPress = (event: KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === 'Enter') {
+      handleSearch()
+    }
+  }
+
   const clearInput = () => {
     setQuery('')
     clearData()
-  }
-
-  const handleSearch = () => {
-    search(query)
   }
 
   return (
@@ -43,6 +49,7 @@ function WikiSearch({ className }: IProps) {
           value={query}
           onChange={handleQueryChange}
           onInputClear={clearInput}
+          onKeyPress={handleKeyPress}
         />
 
         <Button className={css.searchButton} onClick={handleSearch}>
