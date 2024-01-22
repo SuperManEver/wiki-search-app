@@ -4,8 +4,13 @@
     'Roboto Mono', 'Oxygen Mono', 'Ubuntu Monospace', 'Source Code Pro',
     'Fira Mono', 'Droid Sans Mono', 'Courier New', monospace;
 
+  --border-radius: 6px;
+
   --main-grey-300: #f8f9fa;
   --main-grey-400: #d0cfce;
+
+  --color-snow: #ffffff;
+  --color-ocean: #416dea;
 }
 
 * {

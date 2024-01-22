@@ -12,7 +12,11 @@ import SearchInput from '@/components/search-input'
 // styles
 import css from './styles.module.scss'
 
-function WikiSearch() {
+interface IProps {
+  className?: string
+}
+
+function WikiSearch({ className }: IProps) {
   const [query, setQuery] = useState<string>('')
   const { data, clearData } = useWikiSearch<WikiSearchResult>(query)
 
@@ -28,7 +32,7 @@ function WikiSearch() {
   }
 
   return (
-    <div className={css.root}>
+    <div className={className}>
       <SearchInput
         value={query}
         onChange={handleQueryChange}
