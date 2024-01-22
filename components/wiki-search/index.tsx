@@ -8,6 +8,7 @@ import { useWikiSearch } from '@/utils/hooks'
 // UI
 import SearchItem from '@/components/search-item'
 import SearchInput from '@/components/search-input'
+import Button from '@/components/button'
 
 // styles
 import css from './styles.module.scss'
@@ -18,7 +19,7 @@ interface IProps {
 
 function WikiSearch({ className }: IProps) {
   const [query, setQuery] = useState<string>('')
-  const { data, clearData } = useWikiSearch<WikiSearchResult>(query)
+  const { data, clearData, search } = useWikiSearch<WikiSearchResult>(query)
 
   const handleQueryChange = (evt: ChangeEvent<HTMLInputElement>) => {
     const value = evt.target.value
@@ -31,14 +32,23 @@ function WikiSearch({ className }: IProps) {
     clearData()
   }
 
+  const handleSearch = () => {
+    search(query)
+  }
+
   return (
     <div className={className}>
-      <SearchInput
-        value={query}
-        onChange={handleQueryChange}
-        onInputClear={clearInput}
-        className={css.searchWrapper}
-      />
+      <div className={css.searchWrapper}>
+        <SearchInput
+          value={query}
+          onChange={handleQueryChange}
+          onInputClear={clearInput}
+        />
+
+        <Button className={css.searchButton} onClick={handleSearch}>
+          Search
+        </Button>
+      </div>
 
       <div>
         {data && data.map((item) => <SearchItem key={item.id} item={item} />)}

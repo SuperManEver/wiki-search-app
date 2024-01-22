@@ -45,11 +45,11 @@ export function useWikiSearch<T>(searchTerm: string) {
     })
   }, [])
 
-  useEffect(() => {
-    if (searchTerm && searchTerm.length > 2) {
-      search(searchTerm)
-    }
-  }, [searchTerm, search])
+  // useEffect(() => {
+  //   if (searchTerm && searchTerm.length > 2) {
+  //     search(searchTerm)
+  //   }
+  // }, [searchTerm, search])
 
-  return { ...status, clearData }
+  return { ...status, clearData, search }
 }
