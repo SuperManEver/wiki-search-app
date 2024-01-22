@@ -8,6 +8,7 @@
 
   --main-grey-300: #f8f9fa;
   --main-grey-400: #d0cfce;
+  --main-grey-600: #7f7f7f;
 
   --color-snow: #ffffff;
   --color-ocean: #416dea;
@@ -41,5 +42,9 @@ a {
 }
 
 .cl-signUp-start > div:last-child {
+  display: none;
+}
+
+.cl-footer {
   display: none;
 }

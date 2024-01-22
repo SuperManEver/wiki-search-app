@@ -8,3 +8,11 @@
   margin-bottom: 40px;
   padding-top: 30px;
 }
+
+.authMenu {
+  display: flex;
+
+  & > *:first-child {
+    margin-right: 6px;
+  }
+}

@@ -11,7 +11,7 @@ import css from './styles.module.scss'
 function SignUpPage() {
   return (
     <div className={css.root}>
-      <Link className={css.backButton} href="/sign-in">
+      <Link className={css.backButton} href="/">
         <Button>Back</Button>
       </Link>
 

@@ -14,7 +14,7 @@ function SignInPage() {
         <Button>Back</Button>
       </Link>
 
-      <SignIn redirectUrl="/" />
+      <SignIn redirectUrl="/" afterSignInUrl="/new-user" />
     </div>
   )
 }
