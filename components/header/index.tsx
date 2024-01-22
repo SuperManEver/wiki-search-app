@@ -11,28 +11,30 @@ import Link from 'next/link'
 import css from './styles.module.scss'
 
 function Header() {
-  const { user } = useUser()
+  const { user, isLoaded } = useUser()
 
   return (
     <header className={css.header}>
-      {user ? (
-        <div className={css.userInfo}>
-          <p className={css.userName}>
-            {user?.firstName + ' ' + user?.lastName}
-          </p>
-          <UserButton afterSignOutUrl="/" />
-        </div>
-      ) : (
-        <div className={css.authMenu}>
-          <Link href="/sign-in">
-            <Button type="secondary">Login</Button>
-          </Link>
+      {!isLoaded && <p>Loading...</p>}
+      {isLoaded &&
+        (user ? (
+          <div className={css.userInfo}>
+            <p className={css.userName}>
+              {user?.firstName + ' ' + user?.lastName}
+            </p>
+            <UserButton afterSignOutUrl="/" />
+          </div>
+        ) : (
+          <div className={css.authMenu}>
+            <Link href="/sign-in">
+              <Button type="secondary">Login</Button>
+            </Link>
 
-          <Link href="/sign-up">
-            <Button>Sign up</Button>
-          </Link>
-        </div>
-      )}
+            <Link href="/sign-up">
+              <Button>Sign up</Button>
+            </Link>
+          </div>
+        ))}
     </header>
   )
 }
