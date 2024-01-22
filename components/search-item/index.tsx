@@ -1,4 +1,4 @@
-import type { WikiSearchResult } from '@/app/types'
+import type { WikiSearchResult } from '@/types'
 
 // styles
 import css from './styles.module.scss'

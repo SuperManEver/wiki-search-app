@@ -4,7 +4,7 @@ import cn from 'clsx'
 import Image from 'next/image'
 
 // icons
-import closeIcon from '@/app/assets/close-icon.svg'
+import closeIcon from '@/assets/close-icon.svg'
 
 // styles
 import css from './styles.module.scss'
