@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, ChangeEvent, KeyboardEvent, useCallback } from 'react'
+import { useState, ChangeEvent, KeyboardEvent } from 'react'
 import type { WikiSearchResult } from '@/types'
 
 import { useWikiSearch } from '@/utils/hooks'
@@ -9,6 +9,7 @@ import { useWikiSearch } from '@/utils/hooks'
 import SearchItem from '@/components/search-item'
 import SearchInput from '@/components/search-input'
 import Button from '@/components/button'
+import Spinner from '@/components/spinner'
 
 // styles
 import css from './styles.module.scss'
@@ -19,7 +20,8 @@ interface IProps {
 
 function WikiSearch({ className }: IProps) {
   const [query, setQuery] = useState<string>('')
-  const { data, clearData, search } = useWikiSearch<WikiSearchResult>(query)
+  const { data, loading, clearData, search } =
+    useWikiSearch<WikiSearchResult>(query)
 
   const handleQueryChange = (evt: ChangeEvent<HTMLInputElement>) => {
     const value = evt.target.value
@@ -61,9 +63,15 @@ function WikiSearch({ className }: IProps) {
         </Button>
       </div>
 
-      <div>
-        {data && data.map((item) => <SearchItem key={item.id} item={item} />)}
-      </div>
+      {loading ? (
+        <div className={css.loadingContainer}>
+          <Spinner />
+        </div>
+      ) : (
+        <div>
+          {data && data.map((item) => <SearchItem key={item.id} item={item} />)}
+        </div>
+      )}
     </div>
   )
 }
