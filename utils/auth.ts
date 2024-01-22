@@ -13,3 +13,9 @@ export const getUserFromClerkID = async (select = { id: true }) => {
 
   return user
 }
+
+export const isUserLoggedIn = () => {
+  const { userId } = auth()
+
+  return userId !== null
+}
