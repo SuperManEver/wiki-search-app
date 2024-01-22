@@ -27,6 +27,7 @@ function SearchInput({
   return (
     <div className={cn(css.root, className)}>
       <input
+        autoFocus
         value={value}
         type="text"
         placeholder="Enter something..."
