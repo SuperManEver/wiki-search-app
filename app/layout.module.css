@@ -1,0 +1,6 @@
+.root {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  background-color: white;
+  height: 100vh;
+}
