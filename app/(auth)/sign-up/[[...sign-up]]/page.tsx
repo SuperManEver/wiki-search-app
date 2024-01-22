@@ -15,12 +15,7 @@ function SignUpPage() {
         <Button>Back</Button>
       </Link>
 
-      <SignUp
-        routing="path"
-        afterSignInUrl="/new-user"
-        afterSignUpUrl="/new-user"
-        redirectUrl="/new-user"
-      />
+      <SignUp afterSignUpUrl="/new-user" redirectUrl="/new-user" />
     </div>
   )
 }
