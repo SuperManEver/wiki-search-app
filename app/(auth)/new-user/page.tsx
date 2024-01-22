@@ -11,8 +11,6 @@ const createNewUser = async () => {
     },
   })
 
-  console.log('matched user: ', match)
-
   if (!match && user) {
     await prisma.user.create({
       data: {
@@ -21,8 +19,6 @@ const createNewUser = async () => {
       },
     })
   }
-
-  console.log(user)
 
   redirect('/')
 }

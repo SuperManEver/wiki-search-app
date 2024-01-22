@@ -1,0 +1,23 @@
+.header {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 40px;
+  padding-top: 30px;
+}
+
+.authMenu {
+  display: flex;
+
+  & > *:first-child {
+    margin-right: 6px;
+  }
+}
+
+.userInfo {
+  display: flex;
+  align-items: center;
+
+  .userName {
+    margin-right: 6px;
+  }
+}
