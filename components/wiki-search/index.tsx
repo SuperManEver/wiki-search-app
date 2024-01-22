@@ -1,13 +1,13 @@
 'use client'
 
 import { useState, ChangeEvent } from 'react'
-import type { WikiSearchResult } from '@/app/types'
+import type { WikiSearchResult } from '@/types'
 
-import { useWikiSearch } from '@/app/utils/hooks'
+import { useWikiSearch } from '@/utils/hooks'
 
 // UI
-import SearchItem from '@/app/components/search-item'
-import SearchInput from '@/app/components/search-input'
+import SearchItem from '@/components/search-item'
+import SearchInput from '@/components/search-input'
 
 // styles
 import css from './styles.module.scss'

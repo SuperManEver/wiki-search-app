@@ -1,6 +1,6 @@
 import css from './page.module.css'
 
-import WikiSearch from '@/app/components/wiki-search'
+import WikiSearch from '@/components/wiki-search'
 
 function Home() {
   return (
