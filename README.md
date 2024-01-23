@@ -1,17 +1,37 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## Local setup
 
-## Getting Started
+In order to run app locally you should have Node.js version > 18.17
 
-First, run the development server:
+1. install dependecies
+
+```bash
+npm install
+# or
+yarn install
+```
+
+2. Add `.env.local` file with required environments variables
+
+3. Create file for DB for local purposes
+
+```bash
+touch ./prisma/dev.db
+```
+
+4. Configure database
+
+```bash
+npx prisma db psuh
+# then
+npx prisma generate
+```
+
+5. Run application in development mode
 
 ```bash
 npm run dev
 # or
 yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
 ## Create new migration after schema change
