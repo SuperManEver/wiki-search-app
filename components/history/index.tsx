@@ -31,9 +31,14 @@ async function History() {
 
   const { history } = await getData()
 
+  const hasAnyRecords = history.length > 0
+  const title = hasAnyRecords
+    ? 'You recently searched'
+    : `Your search history is empty :-(`
+
   return (
     <div className={css.root}>
-      <h3 className={css.title}>You recently searched</h3>
+      <h3 className={css.title}>{title}</h3>
 
       <ul>
         {history.map((item) => (
