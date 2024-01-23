@@ -2,6 +2,7 @@
 
 // vendor
 import { useState, ChangeEvent, KeyboardEvent, useRef, useEffect } from 'react'
+import debounce from 'debounce'
 import { useVirtualizer } from '@tanstack/react-virtual'
 
 // types
@@ -24,6 +25,7 @@ interface IProps {
 }
 
 const MARGIN = 24
+const DEBOUNCE_THRESHOLD = 200
 
 function WikiSearch({ className }: IProps) {
   const rootRef = useRef<HTMLDivElement>(null)
@@ -32,7 +34,7 @@ function WikiSearch({ className }: IProps) {
   const [divHeight, setDivHeight] = useState<number>(0)
 
   useEffect(() => {
-    const updateDivHeight = () => {
+    const updateDivHeight = debounce(() => {
       if (!rootRef || !searchBlockRef) {
         return
       }
@@ -48,7 +50,7 @@ function WikiSearch({ className }: IProps) {
           setDivHeight(availableSpace)
         }
       }
-    }
+    }, DEBOUNCE_THRESHOLD)
 
     updateDivHeight()
 
@@ -73,9 +75,9 @@ function WikiSearch({ className }: IProps) {
     setQuery(value)
   }
 
-  const handleSearch = () => {
+  const handleSearch = debounce(() => {
     search(query)
-  }
+  }, DEBOUNCE_THRESHOLD)
 
   const handleKeyPress = (event: KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Escape') {
