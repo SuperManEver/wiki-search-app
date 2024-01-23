@@ -10,6 +10,7 @@ import css from './styles.module.scss'
 
 const getData = async () => {
   const user = await getUserFromClerkID()
+
   const history = await prisma.searchHistoryEntry.findMany({
     where: {
       userId: user.id,
