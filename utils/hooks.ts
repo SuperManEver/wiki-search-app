@@ -1,10 +1,12 @@
 import { useState, useCallback } from 'react'
+import { useUser } from '@clerk/nextjs'
 
 // utils
 import { newHistoryEntry } from '@/utils/api'
 import { BASE_URL, API_SEARCH_ENTRIES_LIMIT } from '@/utils/constants'
 
 export function useWikiSearch<T>() {
+  const { user, isLoaded } = useUser()
   const [status, setStatus] = useState<{
     loading: boolean
     error?: unknown
@@ -23,7 +25,9 @@ export function useWikiSearch<T>() {
     setStatus({ loading: true })
 
     try {
-      newHistoryEntry(query).then()
+      if (isLoaded && user) {
+        newHistoryEntry(query).then()
+      }
 
       const res = await fetch(url)
 

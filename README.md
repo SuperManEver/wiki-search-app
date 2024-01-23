@@ -21,7 +21,9 @@ touch ./prisma/dev.db
 4. Configure database
 
 ```bash
-npx prisma db psuh
+npx prisma migrate dev
+# then
+npx prisma db push
 # then
 npx prisma generate
 ```

@@ -2,7 +2,7 @@
 
 // vendor
 import React from 'react'
-import { useUser, auth, UserButton } from '@clerk/nextjs'
+import { useUser, UserButton } from '@clerk/nextjs'
 
 // ui
 import Button from '@/components/button'
