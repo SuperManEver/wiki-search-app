@@ -1,17 +1,34 @@
+@import 'stylesheets/utils';
+
 .root {
   width: 100%;
   margin-bottom: 0.6rem;
   padding: 14px 20px;
   font-size: 1rem;
   border: 1px solid var(--main-grey-400);
+
+  @include for-mobile {
+    padding: 12px 10px;
+  }
 }
 
 .title {
   font-weight: bold;
   font-size: 1.3rem;
   margin-bottom: 0.4rem;
+
+  @include for-mobile {
+    font-weight: normal;
+    font-size: 1.2rem;
+    margin-bottom: 0.2rem;
+  }
 }
 
 .text {
   line-height: 1.4rem;
+
+  @include for-mobile {
+    font-size: 0.9rem;
+    line-height: 1.2rem;
+  }
 }
