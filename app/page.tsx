@@ -7,7 +7,6 @@ import Header from '@/components/header'
 import WikiSearch from '@/components/wiki-search'
 import History from '@/components/history'
 
-// temp
 import { HistoryPlaceholder } from '@/components/placeholders'
 
 function Home() {

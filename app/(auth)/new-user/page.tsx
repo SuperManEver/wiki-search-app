@@ -24,8 +24,6 @@ const createNewUser = async () => {
 }
 
 const NewUser = async () => {
-  console.log('new user visited')
-
   await createNewUser()
 
   return <div>...loading</div>
