@@ -45,3 +45,13 @@ npx prisma migrate dev --name migration_name
 ```bash
 prisma db push
 ```
+
+## Performance
+
+- Employed virtualized lists in order to avoid unnecessary resource consumption
+- Employed debounce in order to avoid triggering API calls or other computations too often
+- Applied database indexes for faster records lookup in Database
+
+## Security
+
+- Do not store critical user information in app's database by using OAuth protocol
