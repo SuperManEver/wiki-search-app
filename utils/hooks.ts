@@ -2,7 +2,7 @@ import { useState, useCallback } from 'react'
 
 // utils
 import { newHistoryEntry } from '@/utils/api'
-import { BASE_URL } from '@/utils/constants'
+import { BASE_URL, API_SEARCH_ENTRIES_LIMIT } from '@/utils/constants'
 
 export function useWikiSearch<T>() {
   const [status, setStatus] = useState<{
@@ -14,7 +14,10 @@ export function useWikiSearch<T>() {
   })
 
   const search = useCallback(async (query: string) => {
-    const queryParams = new URLSearchParams({ q: query, limit: '20' })
+    const queryParams = new URLSearchParams({
+      q: query,
+      limit: API_SEARCH_ENTRIES_LIMIT,
+    })
     const url = `${BASE_URL}?${queryParams.toString()}`
 
     setStatus({ loading: true })
