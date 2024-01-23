@@ -13,10 +13,12 @@ import { HistoryPlaceholder } from '@/components/placeholders'
 function Home() {
   return (
     <main className={css.root}>
-      <Header />
-      <Suspense fallback={<HistoryPlaceholder />}>
-        <History />
-      </Suspense>
+      <section>
+        <Header />
+        <Suspense fallback={<HistoryPlaceholder />}>
+          <History />
+        </Suspense>
+      </section>
       <WikiSearch />
     </main>
   )
