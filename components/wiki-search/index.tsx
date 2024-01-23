@@ -31,6 +31,34 @@ function WikiSearch({ className }: IProps) {
   const parentRef = useRef<HTMLDivElement>(null)
   const [divHeight, setDivHeight] = useState<number>(0)
 
+  useEffect(() => {
+    const updateDivHeight = () => {
+      if (!rootRef || !searchBlockRef) {
+        return
+      }
+
+      if (rootRef.current && searchBlockRef.current) {
+        const { height: parentHeight } = rootRef.current.getBoundingClientRect()
+        const { height: searchHeight } =
+          searchBlockRef.current.getBoundingClientRect()
+
+        const availableSpace = Math.floor(parentHeight - searchHeight - MARGIN)
+
+        if (availableSpace > 0) {
+          setDivHeight(availableSpace)
+        }
+      }
+    }
+
+    updateDivHeight()
+
+    window.addEventListener('resize', updateDivHeight)
+
+    return () => {
+      window.removeEventListener('resize', updateDivHeight)
+    }
+  }, [])
+
   const [query, setQuery] = useState<string>('')
   const {
     data = [],
@@ -67,39 +95,11 @@ function WikiSearch({ className }: IProps) {
   const virtualizer = useVirtualizer({
     count: data.length,
     getScrollElement: () => parentRef.current,
-    estimateSize: () => 106,
+    estimateSize: () => 130,
   })
 
   const virtualItems = virtualizer.getVirtualItems()
   const totalSize = virtualizer.getTotalSize()
-
-  useEffect(() => {
-    const updateDivHeight = () => {
-      if (!rootRef || !searchBlockRef) {
-        return
-      }
-
-      if (rootRef.current && searchBlockRef.current) {
-        const { height: parentHeight } = rootRef.current.getBoundingClientRect()
-        const { height: searchHeight } =
-          searchBlockRef.current.getBoundingClientRect()
-
-        const availableSpace = Math.floor(parentHeight - searchHeight - MARGIN)
-
-        if (availableSpace > 0) {
-          setDivHeight(availableSpace)
-        }
-      }
-    }
-
-    updateDivHeight()
-
-    window.addEventListener('resize', updateDivHeight)
-
-    return () => {
-      window.removeEventListener('resize', updateDivHeight)
-    }
-  }, [])
 
   return (
     <div className={className} ref={rootRef}>
