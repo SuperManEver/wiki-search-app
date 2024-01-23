@@ -1,13 +1,24 @@
+@import 'stylesheets/utils';
+
 .root {
   position: relative;
   display: flex;
   height: 100vh;
   justify-content: center;
   align-items: center;
+
+  @include for-mobile {
+    width: 96%;
+    margin: 0 auto;
+  }
 }
 
 .backButton {
   position: absolute;
   top: 20px;
   left: 30px;
+
+  @include for-mobile {
+    left: 0;
+  }
 }

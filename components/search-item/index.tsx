@@ -1,3 +1,5 @@
+import { CSSProperties } from 'react'
+
 // utils
 import { sanitizeRawHtml } from '@/utils/helpers'
 
@@ -9,13 +11,14 @@ import css from './styles.module.scss'
 
 interface IProps {
   item: WikiSearchResult
+  style: CSSProperties
 }
 
-function SearchItem({ item }: IProps) {
+function SearchItem({ item, style }: IProps) {
   const { title, excerpt } = item
 
   return (
-    <div className={css.root}>
+    <div className={css.root} style={{ ...style }}>
       <p className={css.title}>{title}</p>
 
       <p

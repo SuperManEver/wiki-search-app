@@ -1,8 +1,14 @@
 'use client'
 
-import { useState, ChangeEvent, KeyboardEvent } from 'react'
+// vendor
+import { useState, ChangeEvent, KeyboardEvent, useRef, useEffect } from 'react'
+import debounce from 'debounce'
+import { useVirtualizer } from '@tanstack/react-virtual'
+
+// types
 import type { WikiSearchResult } from '@/types'
 
+// hooks
 import { useWikiSearch } from '@/utils/hooks'
 
 // UI
@@ -18,9 +24,50 @@ interface IProps {
   className?: string
 }
 
+const MARGIN = 24
+const DEBOUNCE_THRESHOLD = 200
+
 function WikiSearch({ className }: IProps) {
+  const rootRef = useRef<HTMLDivElement>(null)
+  const searchBlockRef = useRef<HTMLDivElement>(null)
+  const parentRef = useRef<HTMLDivElement>(null)
+  const [divHeight, setDivHeight] = useState<number>(0)
+
+  useEffect(() => {
+    const updateDivHeight = debounce(() => {
+      if (!rootRef || !searchBlockRef) {
+        return
+      }
+
+      if (rootRef.current && searchBlockRef.current) {
+        const { height: parentHeight } = rootRef.current.getBoundingClientRect()
+        const { height: searchHeight } =
+          searchBlockRef.current.getBoundingClientRect()
+
+        const availableSpace = Math.floor(parentHeight - searchHeight - MARGIN)
+
+        if (availableSpace > 0) {
+          setDivHeight(availableSpace)
+        }
+      }
+    }, DEBOUNCE_THRESHOLD)
+
+    updateDivHeight()
+
+    window.addEventListener('resize', updateDivHeight)
+
+    return () => {
+      window.removeEventListener('resize', updateDivHeight)
+    }
+  }, [])
+
   const [query, setQuery] = useState<string>('')
-  const { data, loading, clearData, search } = useWikiSearch<WikiSearchResult>()
+  const {
+    data = [],
+    loading,
+    clearData,
+    search,
+  } = useWikiSearch<WikiSearchResult>()
 
   const handleQueryChange = (evt: ChangeEvent<HTMLInputElement>) => {
     const value = evt.target.value
@@ -28,9 +75,9 @@ function WikiSearch({ className }: IProps) {
     setQuery(value)
   }
 
-  const handleSearch = () => {
+  const handleSearch = debounce(() => {
     search(query)
-  }
+  }, DEBOUNCE_THRESHOLD)
 
   const handleKeyPress = (event: KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Escape') {
@@ -47,9 +94,18 @@ function WikiSearch({ className }: IProps) {
     clearData()
   }
 
+  const virtualizer = useVirtualizer({
+    count: data.length,
+    getScrollElement: () => parentRef.current,
+    estimateSize: () => 130,
+  })
+
+  const virtualItems = virtualizer.getVirtualItems()
+  const totalSize = virtualizer.getTotalSize()
+
   return (
-    <div className={className}>
-      <div className={css.searchWrapper}>
+    <div className={className} ref={rootRef}>
+      <div ref={searchBlockRef} className={css.searchWrapper}>
         <SearchInput
           value={query}
           onChange={handleQueryChange}
@@ -67,8 +123,40 @@ function WikiSearch({ className }: IProps) {
           <Spinner />
         </div>
       ) : (
-        <div>
-          {data && data.map((item) => <SearchItem key={item.id} item={item} />)}
+        <div
+          ref={parentRef}
+          className={css.scrollWrapper}
+          style={{
+            height: `${divHeight}px`,
+            overflow: 'auto',
+          }}
+        >
+          <div
+            style={{
+              height: `${totalSize}px`,
+              width: '100%',
+              position: 'relative',
+            }}
+          >
+            {virtualItems.map((vItem) => {
+              const item = data[vItem.index]
+
+              return (
+                <SearchItem
+                  key={item.id}
+                  item={item}
+                  style={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    width: '100%',
+                    height: `${vItem.size}px`,
+                    transform: `translateY(${vItem.start}px)`,
+                  }}
+                />
+              )
+            })}
+          </div>
         </div>
       )}
     </div>
