@@ -3,6 +3,7 @@ import React from 'react'
 // utils
 import { getUserFromClerkID, isUserLoggedIn } from '@/utils/auth'
 import { prisma } from '@/utils/db'
+import { HISTORY_RECORDS_DISPLAY_LIMIT } from '@/utils/constants'
 
 // styles
 import css from './styles.module.scss'
@@ -13,6 +14,7 @@ const getData = async () => {
     where: {
       userId: user.id,
     },
+    take: HISTORY_RECORDS_DISPLAY_LIMIT,
     orderBy: {
       createdAt: 'desc',
     },
@@ -22,25 +24,23 @@ const getData = async () => {
 }
 
 async function History() {
-  if (!isUserLoggedIn) {
+  if (!isUserLoggedIn()) {
     return null
   }
 
   const { history } = await getData()
 
-  console.log(history)
-
   return (
     <div className={css.root}>
-      <h3>You recently searched</h3>
+      <h3 className={css.title}>You recently searched</h3>
 
-      <div>
+      <ul>
         {history.map((item) => (
-          <div key={item.id}>
-            <p>{item.content}</p>
-          </div>
+          <li key={item.id}>
+            <p className={css.historyEntry}>{item.content}</p>
+          </li>
         ))}
-      </div>
+      </ul>
     </div>
   )
 }
