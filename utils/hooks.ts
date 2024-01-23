@@ -3,7 +3,7 @@ import { useState, useCallback } from 'react'
 import { newHistoryEntry } from '@/utils/api'
 import { BASE_URL } from '@/utils/constants'
 
-export function useWikiSearch<T>(searchTerm: string) {
+export function useWikiSearch<T>() {
   const [status, setStatus] = useState<{
     loading: boolean
     error?: unknown

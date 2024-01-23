@@ -20,8 +20,7 @@ interface IProps {
 
 function WikiSearch({ className }: IProps) {
   const [query, setQuery] = useState<string>('')
-  const { data, loading, clearData, search } =
-    useWikiSearch<WikiSearchResult>(query)
+  const { data, loading, clearData, search } = useWikiSearch<WikiSearchResult>()
 
   const handleQueryChange = (evt: ChangeEvent<HTMLInputElement>) => {
     const value = evt.target.value
