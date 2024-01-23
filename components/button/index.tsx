@@ -7,7 +7,7 @@ interface IProps {
   children: React.ReactNode
   type?: 'primary' | 'secondary'
   className?: string
-  onClick(): void
+  onClick?(): void
 }
 
 function Button({ children, type = 'primary', className, onClick }: IProps) {

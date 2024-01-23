@@ -1,8 +1,10 @@
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useCallback } from 'react'
 
+// utils
+import { newHistoryEntry } from '@/utils/api'
 import { BASE_URL } from '@/utils/constants'
 
-export function useWikiSearch<T>(searchTerm: string) {
+export function useWikiSearch<T>() {
   const [status, setStatus] = useState<{
     loading: boolean
     error?: unknown
@@ -18,6 +20,8 @@ export function useWikiSearch<T>(searchTerm: string) {
     setStatus({ loading: true })
 
     try {
+      newHistoryEntry(query).then()
+
       const res = await fetch(url)
 
       if (!res.ok) {
@@ -44,12 +48,6 @@ export function useWikiSearch<T>(searchTerm: string) {
       data: [],
     })
   }, [])
-
-  // useEffect(() => {
-  //   if (searchTerm && searchTerm.length > 2) {
-  //     search(searchTerm)
-  //   }
-  // }, [searchTerm, search])
 
   return { ...status, clearData, search }
 }

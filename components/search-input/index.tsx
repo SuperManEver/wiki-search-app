@@ -1,5 +1,5 @@
 // vendor
-import { ChangeEvent } from 'react'
+import { ChangeEvent, KeyboardEvent } from 'react'
 import cn from 'clsx'
 import Image from 'next/image'
 
@@ -12,19 +12,28 @@ import css from './styles.module.scss'
 interface IProps {
   value: string
   onChange(evt: ChangeEvent<HTMLInputElement>): void
+  onKeyPress(evt: KeyboardEvent<HTMLInputElement>): void
   onInputClear(): void
   className?: string
 }
 
-function SearchInput({ value, onChange, onInputClear, className }: IProps) {
+function SearchInput({
+  value,
+  onChange,
+  onInputClear,
+  className,
+  onKeyPress,
+}: IProps) {
   return (
     <div className={cn(css.root, className)}>
       <input
+        autoFocus
         value={value}
         type="text"
         placeholder="Enter something..."
         className={css.input}
         onChange={onChange}
+        onKeyDown={onKeyPress}
       />
 
       <button

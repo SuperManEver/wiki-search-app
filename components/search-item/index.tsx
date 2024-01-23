@@ -1,3 +1,7 @@
+// utils
+import { sanitizeRawHtml } from '@/utils/helpers'
+
+// types
 import type { WikiSearchResult } from '@/types'
 
 // styles
@@ -14,7 +18,10 @@ function SearchItem({ item }: IProps) {
     <div className={css.root}>
       <p className={css.title}>{title}</p>
 
-      <p dangerouslySetInnerHTML={{ __html: excerpt }} className={css.text} />
+      <p
+        dangerouslySetInnerHTML={sanitizeRawHtml(excerpt)}
+        className={css.text}
+      />
     </div>
   )
 }

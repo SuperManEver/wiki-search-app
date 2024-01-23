@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, ChangeEvent } from 'react'
+import { useState, ChangeEvent, KeyboardEvent } from 'react'
 import type { WikiSearchResult } from '@/types'
 
 import { useWikiSearch } from '@/utils/hooks'
@@ -9,6 +9,7 @@ import { useWikiSearch } from '@/utils/hooks'
 import SearchItem from '@/components/search-item'
 import SearchInput from '@/components/search-input'
 import Button from '@/components/button'
+import Spinner from '@/components/spinner'
 
 // styles
 import css from './styles.module.scss'
@@ -19,7 +20,7 @@ interface IProps {
 
 function WikiSearch({ className }: IProps) {
   const [query, setQuery] = useState<string>('')
-  const { data, clearData, search } = useWikiSearch<WikiSearchResult>(query)
+  const { data, loading, clearData, search } = useWikiSearch<WikiSearchResult>()
 
   const handleQueryChange = (evt: ChangeEvent<HTMLInputElement>) => {
     const value = evt.target.value
@@ -27,13 +28,23 @@ function WikiSearch({ className }: IProps) {
     setQuery(value)
   }
 
+  const handleSearch = () => {
+    search(query)
+  }
+
+  const handleKeyPress = (event: KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === 'Escape') {
+      clearInput()
+    }
+
+    if (event.key === 'Enter') {
+      handleSearch()
+    }
+  }
+
   const clearInput = () => {
     setQuery('')
     clearData()
-  }
-
-  const handleSearch = () => {
-    search(query)
   }
 
   return (
@@ -43,6 +54,7 @@ function WikiSearch({ className }: IProps) {
           value={query}
           onChange={handleQueryChange}
           onInputClear={clearInput}
+          onKeyPress={handleKeyPress}
         />
 
         <Button className={css.searchButton} onClick={handleSearch}>
@@ -50,9 +62,15 @@ function WikiSearch({ className }: IProps) {
         </Button>
       </div>
 
-      <div>
-        {data && data.map((item) => <SearchItem key={item.id} item={item} />)}
-      </div>
+      {loading ? (
+        <div className={css.loadingContainer}>
+          <Spinner />
+        </div>
+      ) : (
+        <div>
+          {data && data.map((item) => <SearchItem key={item.id} item={item} />)}
+        </div>
+      )}
     </div>
   )
 }
