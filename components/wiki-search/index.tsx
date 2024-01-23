@@ -125,7 +125,7 @@ function WikiSearch({ className }: IProps) {
           ref={parentRef}
           className={css.scrollWrapper}
           style={{
-            height: `${divHeight}px`, // THIS IS IMPORTANT 62vh
+            height: `${divHeight}px`,
             overflow: 'auto',
           }}
         >
