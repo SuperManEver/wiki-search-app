@@ -73,37 +73,31 @@ function WikiSearch({ className }: IProps) {
   const virtualItems = virtualizer.getVirtualItems()
   const totalSize = virtualizer.getTotalSize()
 
-  /**
-   * make sure parent component fill available height
-   * this can be achieved using parent CSS layout
-   * after that get REF to parent and probably by appliying
-   * 'document.body.getBoundingClientRect().height;' this can be done
-   *
-   * https://stackoverflow.com/a/44109531
-   */
-
   useEffect(() => {
-    if (!rootRef || !searchBlockRef) {
-      return
-    }
-
-    if (rootRef.current && searchBlockRef.current) {
-      const { height: parentHeight } = rootRef.current.getBoundingClientRect()
-      const { height: searchHeight } =
-        searchBlockRef.current.getBoundingClientRect()
-
-      const availableSpace = Math.floor(parentHeight - searchHeight - MARGIN)
-
-      if (availableSpace > 0) {
-        setDivHeight(availableSpace)
+    const updateDivHeight = () => {
+      if (!rootRef || !searchBlockRef) {
+        return
       }
 
-      console.log(
-        'we have current: ',
-        parentHeight,
-        searchHeight,
-        availableSpace
-      )
+      if (rootRef.current && searchBlockRef.current) {
+        const { height: parentHeight } = rootRef.current.getBoundingClientRect()
+        const { height: searchHeight } =
+          searchBlockRef.current.getBoundingClientRect()
+
+        const availableSpace = Math.floor(parentHeight - searchHeight - MARGIN)
+
+        if (availableSpace > 0) {
+          setDivHeight(availableSpace)
+        }
+      }
+    }
+
+    updateDivHeight()
+
+    window.addEventListener('resize', updateDivHeight)
+
+    return () => {
+      window.removeEventListener('resize', updateDivHeight)
     }
   }, [])
 
