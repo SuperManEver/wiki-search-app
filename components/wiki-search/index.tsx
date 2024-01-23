@@ -67,6 +67,15 @@ function WikiSearch({ className }: IProps) {
   const virtualItems = virtualizer.getVirtualItems()
   const totalSize = virtualizer.getTotalSize()
 
+  /**
+   * make sure parent component fill available height
+   * this can be achieved using parent CSS layout
+   * after that get REF to parent and probably by appliying
+   * 'document.body.getBoundingClientRect().height;' this can be done
+   *
+   * https://stackoverflow.com/a/44109531
+   */
+
   return (
     <div className={className}>
       <div className={css.searchWrapper}>
@@ -90,6 +99,7 @@ function WikiSearch({ className }: IProps) {
         ) : (
           <div
             ref={parentRef}
+            className={css.scrollWrapper}
             style={{
               height: '62vh', // THIS IS IMPORTANT
               overflow: 'auto',
