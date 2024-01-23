@@ -1,10 +1,10 @@
-$mobile-break-point: 481px;
+@import 'stylesheets/utils';
 
 .searchWrapper {
   display: flex;
   margin-bottom: 1rem;
 
-  @media (max-width: $mobile-break-point) {
+  @include for-mobile {
     flex-direction: column;
   }
 }
@@ -13,7 +13,7 @@ $mobile-break-point: 481px;
   border-radius: 0;
   margin-left: 8px;
 
-  @media (max-width: $mobile-break-point) {
+  @include for-mobile {
     margin-left: 0;
     margin-top: 10px;
   }
